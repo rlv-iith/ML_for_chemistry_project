@@ -126,22 +126,4 @@ Nature Energy 4, 383–391 (2019).
 All plots are reproducible by running the scripts
 
 Repository is optimized for clarity & reproducibility
-```yaml
 
----
-
-✔ **Everything is in pure markdown**  
-✔ **No broken code blocks**  
-✔ **GitHub-friendly formatting**  
-✔ **No spacing gaps like before**  
-
-If you want, I can add:
-
-✨ A banner  
-✨ A project logo  
-✨ A License section  
-✨ A Contribution Guide  
-✨ Shields (stars, forks, python version, commits)  
-
-Just say **“Sam add badges”** or **“Sam make it pro-level README”**.
-```
