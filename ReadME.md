@@ -8,7 +8,7 @@
 
 ## 📌 Project Overview
 
-This project tries to replicate and achives better row value of the *End-of-Life (EOL)* prediction capabilities demonstrated in the **Nature Energy** paper:
+This project replicates and optimizes the End-of-Life (EOL) prediction capabilities demonstrated in the Nature Energy paper:
 
 > **"Data-driven prediction of battery cycle life before capacity degradation"**  
 > *Severson et al., 2019*
