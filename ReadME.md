@@ -72,17 +72,20 @@ battery-eol-prediction/
 ├── 02_train_model.py
 └── README.md
 ```
+---
 # 🚀 How to Run
 ## ✅ Step 1 — Process Raw Data
 ```bash
 python 01_process_data.py
 ```
 Output: battery_data_combined.csv (<10MB)
+---
 ## ✅ Step 2 — Train & Visualize
 ```bash
 python 02_train_model.py
 ```
 Output: A results/ folder containing generated graphs.
+---
 # 🧪 Methodology & Feature Engineering
 🔹 1. Log(ΔQ)
 
@@ -105,6 +108,7 @@ Solution: Rolling Mean smoothing with window=9
 ❌ Without smoothing → R² < 0
 
 ✔ With smoothing → clean degradation curve
+---
 # 📈 Visualizations
 ## 1️⃣ Predicted vs Actual Life
 ```bash
@@ -114,12 +118,13 @@ results/2_prediction.png
 ```bash
 results/1_curves.png
 ```
+---
 📚 References
 
 Severson, K.A., Attia, P.M., Jin, N., et al.
 “Data-driven prediction of battery cycle life before capacity degradation.”
 Nature Energy 4, 383–391 (2019).
-
+---
 # 📝 Notes
 .mat files are ignored via .gitignore
 
