@@ -131,9 +131,9 @@ Severson, K.A., Attia, P.M., Jin, N., et al.
 Nature Energy 4, 383–391 (2019).
 ---
 # 📝 Notes
-.mat files are ignored via .gitignore
+- .mat files are ignored via .gitignore
 
-All plots are reproducible by running the scripts
+- All plots are reproducible by running the scripts
 
-Repository is optimized for clarity & reproducibility
+- Repository is optimized for clarity & reproducibility
 
