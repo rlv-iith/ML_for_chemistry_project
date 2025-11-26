@@ -19,7 +19,12 @@ Using only the **first 100 charge/discharge cycles**, this ML model predicts the
 - Uses **Summary Statistics** instead of 10GB raw curves  
 - Applies **Rolling Mean (window = 9)** for noise reduction  
 - Physics-based feature engineering  
-- Lightweight + laptop-friendly training pipeline  
+- Lightweight + laptop-friendly training pipeline
+### 🔑 Key Achievements
+
+- **Replication:** Parsed and processed the complex MIT/Toyota HDF5 dataset.
+- **Optimization:** Improved the correlation (ρ) of capacity-based features from the paper’s baseline of **≈ −0.06** to **≈ −0.45** by combining datasets and applying noise filtering.
+- **Lightweight Model:** Trained an ElasticNet model achieving **~275 cycles RMSE** using only **3MB** of CSV data, compared to the original **GBs** of raw waveform data.
 
 ---
 
@@ -53,13 +58,13 @@ pip install numpy pandas matplotlib seaborn scikit-learn h5py
 ## 3️⃣ ⚠️ Download Raw Dataset (Required)
 Raw .mat files are NOT included in this repo due to size limits.
 
-Download the following from the Toyota/Stanford Battery Data Portal:
+>Download the following from the Toyota/Stanford Battery Data Portal:
 
-2017-05-12_batchdata_updated_struct_errorcorrect.mat
+-2017-05-12_batchdata_updated_struct_errorcorrect.mat
 
-2017-06-30_batchdata_updated_struct_errorcorrect.mat
+-2017-06-30_batchdata_updated_struct_errorcorrect.mat
 
-2018-04-12_batchdata_updated_struct_errorcorrect.mat
+-2018-04-12_batchdata_updated_struct_errorcorrect.mat
 
 Create a directory named raw_data/ and place all .mat files inside.
 ```bash
