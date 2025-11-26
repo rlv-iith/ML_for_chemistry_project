@@ -43,6 +43,6 @@ Using only the **first 100 charge/discharge cycles**, this ML model predicts the
 
 ```bash
 git clone https://github.com/<YOUR_USERNAME>/battery-eol-prediction.git
-cd battery-eol-prediction'''
+cd battery-eol-prediction```
 ---
 ##2️⃣ Install Dependencies
