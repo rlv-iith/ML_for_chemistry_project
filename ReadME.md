@@ -133,7 +133,16 @@ results/1_curves.png
 - **Blue lines:** Batteries that lived long (>1500 cycles).
 - **The Story:** Notice how the red curves have a sharper downward slope even early on. Our model detects this subtle "Curvature" in the first 100 cycles to predict the end of life.
 
-### 2. Predicted vs. Actual Life
+### 2.Feature Importance (The Physics)
+![Feature Importance](results/3_feature_importance.png)
+**What drives death?**
+- **Log(Delta_Q):** Capacity fade is the #1 killer. (High fade = Short Life).
+- **Internal Resistance:** Higher resistance = Short Life.
+- **Conclusion:** The model learned the correct chemical physics from the data.
+**Where does the model fail?**
+![Residuals](results/2_residuals.png)
+
+### 3. Predicted vs. Actual Life
 ![Prediction Plot](results/1_prediction_accuracy.png)
 **What this shows:** The model's accuracy on unseen test data.
 - **X-Axis:** The actual lifecycle (Truth).
