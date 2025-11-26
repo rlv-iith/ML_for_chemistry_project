@@ -110,9 +110,9 @@ Resistance measured at Cycle 100.
 Dataset batch 2017-05-12 has heavy sensor jitter.
 Solution: Rolling Mean smoothing with window=9
 
-❌ Without smoothing → R² < 0
+- ❌ Without smoothing → R² < 0
 
-✔ With smoothing → clean degradation curve
+- ✔ With smoothing → clean degradation curve
 ---
 # 📈 Visualizations
 ## 1️⃣ Predicted vs Actual Life
