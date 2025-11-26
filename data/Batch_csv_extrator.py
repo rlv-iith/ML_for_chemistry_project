@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 filename = "2017-05-12_batchdata_updated_struct_errorcorrect.mat"
-output_csv = "battery_data_summary.csv"
+output_csv = "batch_values.csv"
 
 all_data = []
 
