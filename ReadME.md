@@ -60,11 +60,11 @@ Raw .mat files are NOT included in this repo due to size limits.
 
 >Download the following from the Toyota/Stanford Battery Data Portal:
 
--2017-05-12_batchdata_updated_struct_errorcorrect.mat
+- 2017-05-12_batchdata_updated_struct_errorcorrect.mat
 
--2017-06-30_batchdata_updated_struct_errorcorrect.mat
+- 2017-06-30_batchdata_updated_struct_errorcorrect.mat
 
--2018-04-12_batchdata_updated_struct_errorcorrect.mat
+- 2018-04-12_batchdata_updated_struct_errorcorrect.mat
 
 Create a directory named raw_data/ and place all .mat files inside.
 ```bash
