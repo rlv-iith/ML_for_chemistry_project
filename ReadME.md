@@ -43,6 +43,32 @@ Using only the **first 100 charge/discharge cycles**, this ML model predicts the
 
 ```bash
 git clone https://github.com/<YOUR_USERNAME>/battery-eol-prediction.git
-cd battery-eol-prediction```
+cd battery-eol-prediction
+```
 ---
 ##2️⃣ Install Dependencies
+```bash
+pip install numpy pandas matplotlib seaborn scikit-learn h5py
+```
+##3️⃣ ⚠️ Download Raw Dataset (Required)
+Raw .mat files are NOT included in this repo due to size limits.
+
+Download the following from the Toyota/Stanford Battery Data Portal:
+
+2017-05-12_batchdata_updated_struct_errorcorrect.mat
+
+2017-06-30_batchdata_updated_struct_errorcorrect.mat
+
+2018-04-12_batchdata_updated_struct_errorcorrect.mat
+
+Create a directory named raw_data/ and place all .mat files inside.
+```bash
+battery-eol-prediction/
+├── raw_data/
+│   ├── 2017-05-12_....mat
+│   ├── 2017-06-30_....mat
+│   └── 2018-04-12_....mat
+├── 01_process_data.py
+├── 02_train_model.py
+└── README.md
+```
