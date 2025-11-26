@@ -1,252 +1,130 @@
-\# 🔋 Data-Driven Battery Cycle Life Prediction
+🔋 Data-Driven Battery Cycle Life Prediction
 
 
 
-!\[Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-
-!\[Machine Learning](https://img.shields.io/badge/ML-ElasticNet-green)
-
-!\[Status](https://img.shields.io/badge/Status-Success-brightgreen)
 
 
 
-\## 📌 Project Overview
+📌 Project Overview
 
-This project replicates the "End-of-Life" (EOL) prediction capabilities demonstrated in the Nature Energy paper: \*Data-driven prediction of battery cycle life before capacity degradation (Severson et al., 2019)\*.
+This project replicates the End-of-Life (EOL) prediction capabilities demonstrated in the Nature Energy paper:
 
+"Data-driven prediction of battery cycle life before capacity degradation"
+Severson et al., 2019
 
+Using only the first 100 charge/discharge cycles, this ML model predicts the total lifespan of Lithium-Ion batteries (typically 500–2000+ cycles).
 
-Using only data from the \*\*first 100 charge/discharge cycles\*\*, this Machine Learning model predicts the total lifespan of Lithium-Ion batteries (which typically ranges from 500 to 2000+ cycles).
+⭐ Key Technical Innovations
 
+Use of Summary Statistics (Capacity & Resistance) instead of large 10GB waveform data.
 
+Signal processing via Rolling Mean (window = 9) to handle noise in older testers.
 
-\*\*Key Technical Challenge:\*\*
+Feature engineering based on electrochemical degradation physics.
 
-The dataset consists of huge MATLAB files (GBs of voltage curves). This project demonstrates an optimized \*\*Lightweight Approach\*\*:
+📊 Results & Performance
+Metric	Result	Notes
+Model Type	ElasticNet Regression	Linear with L1/L2 regularization
+Input Data	Cycles 10 → 100	Early-life data only
+R² Score	0.61	Strong predictive ability with only summary data
+RMSE	≈ 275 cycles	Avg. prediction error
 
-1\. Extraction of "Summary Statistics" (Capacity \& Resistance) rather than raw waveforms.
+🔎 The original paper achieved R² = 0.91 using 10GB+ of raw voltage curves.
+Achieving 0.61 with ~3MB summary data shows standard lab outputs are enough for estimation.
 
-2\. Signal Processing (Smoothing) to handle sensor noise in older battery testers.
-
-3\. Feature Engineering based on electrochemical degradation physics.
-
-
-
-\## 📊 Results \& Performance
-
-
-
-| Metric | Result | Notes |
-
-| :--- | :--- | :--- |
-
-| \*\*Model Type\*\* | ElasticNet Regression | Linear model with Regularization (L1/L2) |
-
-| \*\*Input Data\*\* | Cycles 10 to 100 | Early-life data only |
-
-| \*\*$R^2$ Score\*\* | \*\*0.61\*\* | Strong predictive power using only Summary Data |
-
-| \*\*RMSE\*\* | \*\*~275 Cycles\*\* | Average prediction error |
-
-
-
-\*Note: The original paper achieved $R^2=0.91$ by processing 10GB+ of raw voltage curves. Achieving 0.61 with only 3MB of capacity data confirms that standard lab measurements are sufficient for reasonable estimation.\*
-
-
-
----
-
-
-
-\## 🛠️ Installation \& Setup
-
-
-
-\### 1. Clone the Repository
-
-```bash
-
-git clone https://github.com/<YOUR\_USERNAME>/battery-eol-prediction.git
-
+🛠️ Installation & Setup
+1️⃣ Clone the Repository
+git clone https://github.com/<YOUR_USERNAME>/battery-eol-prediction.git
 cd battery-eol-prediction
 
-
-
-2\. Install Dependencies
-
-You need standard Data Science libraries:
-
-code
-
-Bash
-
+2️⃣ Install Dependencies
 pip install numpy pandas matplotlib seaborn scikit-learn h5py
 
-3\. ⚠️ Download Data (Crucial Step)
+3️⃣ ⚠️ Download Raw Dataset (Important)
 
-Due to GitHub file size limits, the raw data is not included in this repo.
+Raw .mat files cannot be uploaded to GitHub due to size limits.
 
-Go to the Toyota/Stanford Data Portal.
+Visit the Toyota/Stanford Battery Data Portal.
 
 Download these 3 files:
 
-2017-05-12\_batchdata\_updated\_struct\_errorcorrect.mat (Batch 1)
+2017-05-12_batchdata_updated_struct_errorcorrect.mat
 
-2017-06-30\_batchdata\_updated\_struct\_errorcorrect.mat (Batch 2)
+2017-06-30_batchdata_updated_struct_errorcorrect.mat
 
-2018-04-12\_batchdata\_updated\_struct\_errorcorrect.mat (Batch 3)
+2018-04-12_batchdata_updated_struct_errorcorrect.mat
 
-Create a folder named raw\_data in this directory and move the files there.
+Create a folder named raw_data/ and place them inside.
 
-File Structure should look like this:
-
-code
-
-Text
-
+Directory Structure
 battery-eol-prediction/
-
-├── raw\_data/                 <-- You create this
-
-│   ├── 2017-05-12\_....mat
-
-│   ├── 2017-06-30\_....mat
-
-│   └── 2018-04-12\_....mat
-
-├── 01\_process\_data.py
-
-├── 02\_train\_model.py
-
+├── raw_data/
+│   ├── 2017-05-12_....mat
+│   ├── 2017-06-30_....mat
+│   └── 2018-04-12_....mat
+├── 01_process_data.py
+├── 02_train_model.py
 └── README.md
 
 🚀 How to Run
+Step 1 — Process Raw Data
 
-Step 1: Process Raw Data
+Extracts data from MATLAB files, cleans it, and merges all batches.
 
-Extracts the nested HDF5/MATLAB pointers, cleans the data, and merges all 3 batches.
+python 01_process_data.py
 
-code
 
-Bash
+Output: battery_data_combined.csv (~3MB)
 
-python 01\_process\_data.py
+Step 2 — Train & Visualize
 
-Output: battery\_data\_combined.csv (Approx 3MB).
+Computes engineered features, smooths noise, trains the model, and generates graphs.
 
-Step 2: Train \& Visualize
+python 02_train_model.py
 
-Calculates physics-based features, applies Rolling Mean smoothing, trains the ElasticNet model, and saves graphs.
 
-code
+Output: results/ folder with generated plots.
 
-Bash
+🧪 Methodology & Feature Engineering
+🔹 1. Log(ΔQ)
 
-python 02\_train\_model.py
+Difference in discharge capacity between Cycle 100 and Cycle 10.
+(Degradation often follows a power-law → log useful.)
 
-Output: A results/ folder containing performance graphs.
+🔹 2. Curvature
 
-🧪 Methodology \& Feature Engineering
+How curved the degradation line is.
+Formula:
 
-We use a feature-based approach. Instead of feeding raw numbers into the AI, we calculate properties known to correlate with chemical degradation:
+Q55 – LinearAvg(Q10, Q100)
 
-Log(
+🔹 3. Internal Resistance
 
-Δ
+Value measured at Cycle 100.
 
-Δ
+🔧 Noise Handling
 
-Q): The difference in discharge capacity between Cycle 100 and Cycle 10. (Log scale applied as degradation follows a power law).
+Batch 1 (2017-05-12) contains high sensor jitter.
+A Rolling Mean — window=9 removes noise effectively.
 
-Curvature: How "curved" is the degradation line?
-
-Calculated as: 
-
-Q
-
-55
-
-−
-
-LinearAvg
-
-(
-
-Q
-
-10
-
-,
-
-Q
-
-100
-
-)
-
-Q 
-
-55
-
-​
-
-&nbsp;−LinearAvg(Q 
-
-10
-
-​
-
-&nbsp;,Q 
-
-100
-
-​
-
-&nbsp;)
-
-.
-
-Internal Resistance: Value at cycle 100.
-
-The "Sensor Noise" Solution:
-
-Batch 1 (2017-05-12) has significant sensor jitter. We implemented a Rolling Mean (Window=9) pre-processing step. Without this, the model fails (
-
-R
-
-2
-
-<
-
-0
-
-R 
-
-2
-
-&nbsp;<0
-
-). With smoothing, the signal emerges clearly.
+Without smoothing → model collapses (R² < 0).
+With smoothing → clear, usable signal.
 
 📈 Visualizations
+1️⃣ Predicted vs Actual Life
 
-Graphs generated by 02\_train\_model.py
+Shows model's ability to separate short-life (~500 cycles) and long-life (~2000 cycles) batteries.
 
-1\. Predicted vs Actual Life
+results/2_prediction.png
 
-Demonstrates the model's ability to distinguish between short-lived (500 cycles) and long-lived (2000 cycles) batteries.
+2️⃣ Capacity Fade Curves
 
-!\[alt text](results/2\_prediction.png)
+Red = short life, Blue = long life.
 
-2\. Capacity Fade Curves
+results/1_curves.png
 
-Visualizing the degradation path of the batteries in the dataset. Red = Short life, Blue = Long life.
+📚 References
 
-!\[alt text](results/1\_curves.png)
-
-📜 References
-
-This project reproduces the concepts found in:
-
-Severson, K.A., Attia, P.M., Jin, N. et al. "Data-driven prediction of battery cycle life before capacity degradation." Nat Energy 4, 383–391 (2019).
-
+Severson, K.A., Attia, P.M., Jin, N. et al.
+“Data-driven prediction of battery cycle life before capacity degradation.”
+Nature Energy 4, 383–391 (2019).
