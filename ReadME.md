@@ -33,7 +33,7 @@ Using only the **first 100 charge/discharge cycles**, this ML model predicts the
 | **RMSE** | **~275 cycles** | Avg. absolute error |
 
 > The original paper used 10GB+ raw waveform data (R²=0.91).  
-> Here, 3MB summary data achieves R²≈0.61 — proving simpler lab outputs are enough.
+> Here, 3MB summary data achieves R²≈0.61 — with better row value due to smoothing
 
 ---
 
