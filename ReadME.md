@@ -46,11 +46,11 @@ git clone https://github.com/<YOUR_USERNAME>/battery-eol-prediction.git
 cd battery-eol-prediction
 ```
 ---
-##2️⃣ Install Dependencies
+## 2️⃣ Install Dependencies
 ```bash
 pip install numpy pandas matplotlib seaborn scikit-learn h5py
 ```
-##3️⃣ ⚠️ Download Raw Dataset (Required)
+## 3️⃣ ⚠️ Download Raw Dataset (Required)
 Raw .mat files are NOT included in this repo due to size limits.
 
 Download the following from the Toyota/Stanford Battery Data Portal:
@@ -71,4 +71,77 @@ battery-eol-prediction/
 ├── 01_process_data.py
 ├── 02_train_model.py
 └── README.md
+```
+# 🚀 How to Run
+## ✅ Step 1 — Process Raw Data
+```bash
+python 01_process_data.py
+```
+Output: battery_data_combined.csv (<10MB)
+## ✅ Step 2 — Train & Visualize
+```bash
+python 02_train_model.py
+```
+Output: A results/ folder containing generated graphs.
+# 🧪 Methodology & Feature Engineering
+🔹 1. Log(ΔQ)
+
+Difference in discharge capacity between Cycle 100 and Cycle 10.
+(Log transforms stabilize nonlinear degradation.)
+
+🔹 2. Curvature
+
+Measures how non-linear the degradation path is.
+```SCSS
+Q55 - LinearAvg(Q10, Q100)
+```
+🔹 3. Internal Resistance
+
+Resistance measured at Cycle 100.
+# 🔧 Noise Handling
+Dataset batch 2017-05-12 has heavy sensor jitter.
+Solution: Rolling Mean smoothing with window=9
+
+❌ Without smoothing → R² < 0
+
+✔ With smoothing → clean degradation curve
+# 📈 Visualizations
+## 1️⃣ Predicted vs Actual Life
+```bash
+results/2_prediction.png
+```
+## 2️⃣ Capacity Fade Curves
+```bash
+results/1_curves.png
+```
+📚 References
+
+Severson, K.A., Attia, P.M., Jin, N., et al.
+“Data-driven prediction of battery cycle life before capacity degradation.”
+Nature Energy 4, 383–391 (2019).
+
+# 📝 Notes
+.mat files are ignored via .gitignore
+
+All plots are reproducible by running the scripts
+
+Repository is optimized for clarity & reproducibility
+```yaml
+
+---
+
+✔ **Everything is in pure markdown**  
+✔ **No broken code blocks**  
+✔ **GitHub-friendly formatting**  
+✔ **No spacing gaps like before**  
+
+If you want, I can add:
+
+✨ A banner  
+✨ A project logo  
+✨ A License section  
+✨ A Contribution Guide  
+✨ Shields (stars, forks, python version, commits)  
+
+Just say **“Sam add badges”** or **“Sam make it pro-level README”**.
 ```
